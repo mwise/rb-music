@@ -23,7 +23,7 @@ module RBMusic
     def tone_semitone
       # multiply coord vector with [5 2;3 1] to get coordinate in tones and semitones
       # [5 2;3 1] is the inverse of [-1 2;3 -5], which is the coordinates of [tone; semitone]
-      [coord[0] * 5 + coord[1] * 3, coord[0] * 2 + coord[1] * 1]
+      @tone_semitone ||= [coord[0] * 5 + coord[1] * 3, coord[0] * 2 + coord[1] * 1]
     end
 
     def semitone
