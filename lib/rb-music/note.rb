@@ -7,27 +7,6 @@ module RBMusic
       self.coord = coord
     end
 
-    def frequency
-      MUSIC[:baseFreq] * (2.0 ** ((self.coord[0] * 1200 + self.coord[1] * 700) / 1200))
-    end
-
-    def accidental
-      ((self.coord[1] + MUSIC[:baseOffset][1]) / 7.0).round
-    end
-
-    def octave
-      # calculate octave of base note without accidentals
-      acc = self.accidental
-      self.coord[0] + MUSIC[:baseOffset][0] + 4 * acc + ((self.coord[1] + MUSIC[:baseOffset][1] - 7 * acc) / 2).floor
-    end
-
-    def latin
-      noteNames = ['F', 'C', 'G', 'D', 'A', 'E', 'B']
-      accidentals = ['bb', 'b', '', '#', 'x']
-      acc = self.accidental
-      noteNames[self.coord[1] + MUSIC[:baseOffset][1] - acc * 7 + 3] + accidentals[acc + 2]
-    end
-
     def self.from_latin(name)
       n = name.split(/(\d+)/)
 
@@ -55,6 +34,27 @@ module RBMusic
 
         return Note.new(coordinate)
       end
+    end
+
+    def frequency
+      MUSIC[:baseFreq] * (2.0 ** ((self.coord[0] * 1200 + self.coord[1] * 700) / 1200))
+    end
+
+    def accidental
+      ((self.coord[1] + MUSIC[:baseOffset][1]) / 7.0).round
+    end
+
+    def octave
+      # calculate octave of base note without accidentals
+      acc = self.accidental
+      self.coord[0] + MUSIC[:baseOffset][0] + 4 * acc + ((self.coord[1] + MUSIC[:baseOffset][1] - 7 * acc) / 2).floor
+    end
+
+    def latin
+      noteNames = ['F', 'C', 'G', 'D', 'A', 'E', 'B']
+      accidentals = ['bb', 'b', '', '#', 'x']
+      acc = self.accidental
+      noteNames[self.coord[1] + MUSIC[:baseOffset][1] - acc * 7 + 3] + accidentals[acc + 2]
     end
 
     def scale(name)
