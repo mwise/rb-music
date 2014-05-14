@@ -1,6 +1,6 @@
 # rb-music
 
-*rb-music* is a Ruby gem for working with musical notes, scales and intervals. It is basically a direct port of the wonderful [music.js](https://github.com/gregjopa/music.js) library by Greg Jopa.
+**rb-music** is a Ruby gem for working with musical notes, scales and intervals. It is basically a direct port of the wonderful [music.js](https://github.com/gregjopa/music.js) library by Greg Jopa.
 
 ## Installation
 
