@@ -75,7 +75,9 @@ module RBMusic
       end
 
       # if input is string/symbol try to parse it as interval
-      that = Interval.from_name(that) unless that.is_a?(Interval)
+      if that.is_a?(String) || that.is_a?(Symbol)
+        that = Interval.from_name(that)
+      end
 
       Note.new([coord[0] + that.coord[0], coord[1] + that.coord[1]])
     end
