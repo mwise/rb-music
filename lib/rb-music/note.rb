@@ -41,21 +41,19 @@ module RBMusic
     end
 
     def accidental
-      ((coord[1] + MUSIC[:baseOffset][1]) / 7.0).round
+      @accidental ||= ((coord[1] + MUSIC[:baseOffset][1]) / 7.0).round
     end
 
     def octave
       # calculate octave of base note without accidentals
-      acc = accidental
-      coord[0] + MUSIC[:baseOffset][0] + 4 * acc + ((coord[1] + MUSIC[:baseOffset][1] - 7 * acc) / 2).floor
+      coord[0] + MUSIC[:baseOffset][0] + 4 * accidental + ((coord[1] + MUSIC[:baseOffset][1] - 7 * accidental) / 2).floor
     end
 
     def latin
       noteNames = ['F', 'C', 'G', 'D', 'A', 'E', 'B']
       accidentals = ['bb', 'b', '', '#', 'x']
-      acc = accidental
-      noteName = noteNames[coord[1] + MUSIC[:baseOffset][1] - acc * 7 + 3]
-      accidentalName = accidentals[acc + 2]
+      noteName = noteNames[coord[1] + MUSIC[:baseOffset][1] - accidental * 7 + 3]
+      accidentalName = accidentals[accidental + 2]
       noteName + accidentalName
     end
 
