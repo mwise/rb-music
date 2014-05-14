@@ -67,46 +67,34 @@ module RBMusic
       notes << add(:octave)
     end
 
-    def add(interval)
-      # if input is string try to parse it as interval
-      if interval.is_a?(String)
-        interval = Interval.from_name(interval)
-      elsif interval.is_a?(Symbol)
-        interval = Interval.from_name(interval)
-      end
-
+    def add(that)
       # if input is an array return an array
-      if interval.is_a?(Array)
-        notes = interval.map { |that| add(that) }
-
+      if that.is_a?(Array)
+        notes = that.map { |thing| add(thing) }
         return NoteSet.new(notes)
-      else
-        return Note.new([coord[0] + interval.coord[0], coord[1] + interval.coord[1]])
       end
+
+      # if input is string/symbol try to parse it as interval
+      that = Interval.from_name(that) unless that.is_a?(Interval)
+
+      Note.new([coord[0] + that.coord[0], coord[1] + that.coord[1]])
     end
 
-    def subtract(interval)
-      # if input is string try to parse it as interval
-      if interval.is_a?(String)
-        interval = Interval.from_name(interval)
-      elsif interval.is_a?(Symbol)
-        interval = Interval.from_name(interval)
-      end
-
-      # if input is an array return an array
-      if interval.is_a?(Array)
-        notes = interval.map { |that| subtract(that) }
-
+    def subtract(that)
+      if that.is_a?(Array)
+        notes = that.map { |thing| subtract(thing) }
         return NoteSet.new(notes)
-      else
-          coordinate = [coord[0] - interval.coord[0], coord[1] - interval.coord[1]]
-          if interval.is_a?(Note)
-            # if input is another note return the difference as interval
-            return Interval.new(coordinate)
-          else
-            return Note.new(coordinate)
-          end
       end
+
+      # if input is string try to parse it as interval
+      if that.is_a?(String) || that.is_a?(Symbol)
+        that = Interval.from_name(that)
+      end
+
+      coordinate = [coord[0] - that.coord[0], coord[1] - that.coord[1]]
+
+      # if input is another note return the difference as an Interval
+      that.is_a?(Note) ? Interval.new(coordinate) : Note.new(coordinate)
     end
   end
 
