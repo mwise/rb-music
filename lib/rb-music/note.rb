@@ -37,24 +37,26 @@ module RBMusic
     end
 
     def frequency
-      MUSIC[:baseFreq] * (2.0 ** ((self.coord[0] * 1200 + self.coord[1] * 700) / 1200))
+      MUSIC[:baseFreq] * (2.0 ** ((coord[0] * 1200 + coord[1] * 700) / 1200))
     end
 
     def accidental
-      ((self.coord[1] + MUSIC[:baseOffset][1]) / 7.0).round
+      ((coord[1] + MUSIC[:baseOffset][1]) / 7.0).round
     end
 
     def octave
       # calculate octave of base note without accidentals
-      acc = self.accidental
-      self.coord[0] + MUSIC[:baseOffset][0] + 4 * acc + ((self.coord[1] + MUSIC[:baseOffset][1] - 7 * acc) / 2).floor
+      acc = accidental
+      coord[0] + MUSIC[:baseOffset][0] + 4 * acc + ((coord[1] + MUSIC[:baseOffset][1] - 7 * acc) / 2).floor
     end
 
     def latin
       noteNames = ['F', 'C', 'G', 'D', 'A', 'E', 'B']
       accidentals = ['bb', 'b', '', '#', 'x']
-      acc = self.accidental
-      noteNames[self.coord[1] + MUSIC[:baseOffset][1] - acc * 7 + 3] + accidentals[acc + 2]
+      acc = accidental
+      noteName = noteNames[coord[1] + MUSIC[:baseOffset][1] - acc * 7 + 3]
+      accidentalName = accidentals[acc + 2]
+      noteName + accidentalName
     end
 
     def scale(name)
@@ -77,13 +79,11 @@ module RBMusic
 
       # if input is an array return an array
       if interval.is_a?(Array)
-        notes = interval.map do |that|
-          self.add(that)
-        end
+        notes = interval.map { |that| add(that) }
 
         return NoteSet.new(notes)
       else
-        return Note.new([self.coord[0] + interval.coord[0], self.coord[1] + interval.coord[1]])
+        return Note.new([coord[0] + interval.coord[0], coord[1] + interval.coord[1]])
       end
     end
 
@@ -97,13 +97,11 @@ module RBMusic
 
       # if input is an array return an array
       if interval.is_a?(Array)
-        notes = interval.map do |that|
-          self.subtract(that)
-        end
+        notes = interval.map { |that| subtract(that) }
 
         return NoteSet.new(notes)
       else
-          coordinate = [self.coord[0] - interval.coord[0], self.coord[1] - interval.coord[1]]
+          coordinate = [coord[0] - interval.coord[0], coord[1] - interval.coord[1]]
           if interval.is_a?(Note)
             # if input is another note return the difference as interval
             return Interval.new(coordinate)
