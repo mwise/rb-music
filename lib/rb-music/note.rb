@@ -78,9 +78,6 @@ module RBMusic
     end
 
     def add(interval)
-      out = []
-      i = nil
-
       # if input is string try to parse it as interval
       if interval.is_a?(String)
         interval = Interval.from_name(interval)
@@ -90,21 +87,17 @@ module RBMusic
 
       # if input is an array return an array
       if interval.is_a?(Array)
-        interval.size.times do |i|
-          out[i] = self.add(interval[i])
+        notes = interval.map do |that|
+          self.add(that)
         end
 
-        return NoteSet.new(out)
+        return NoteSet.new(notes)
       else
         return Note.new([self.coord[0] + interval.coord[0], self.coord[1] + interval.coord[1]])
       end
     end
 
     def subtract(interval)
-      out = []
-      i = nil
-      coordinate = nil
-
       # if input is string try to parse it as interval
       if interval.is_a?(String)
         interval = Interval.from_name(interval)
@@ -114,13 +107,11 @@ module RBMusic
 
       # if input is an array return an array
       if interval.is_a?(Array)
-        interval.size.times do |i|
-          out[i] = self.subtract(interval[i])
+        notes = interval.map do |that|
+          self.subtract(that)
         end
 
-        #add_addsubtract_func(out)
-
-        return NoteSet.new(out)
+        return NoteSet.new(notes)
       else
           coordinate = [self.coord[0] - interval.coord[0], self.coord[1] - interval.coord[1]]
           if interval.is_a?(Note)
