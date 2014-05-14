@@ -29,14 +29,11 @@ module RBMusic
     end
 
     def self.from_latin(name)
-      out = []
-      j = 0
-      i = nil
-      coordinate = nil
-
       n = name.split(/(\d+)/)
 
       if (n.size > 3)
+        notes = []
+        j = 0
         cycles = (n.size - 1) / 2
         cycles.times do |i|
           coordinate = MUSIC[:notes][n[j]]
@@ -45,10 +42,10 @@ module RBMusic
           coordinate[0] -= MUSIC[:baseOffset][0]
           coordinate[1] -= MUSIC[:baseOffset][1]
 
-          out[i] = Note.new(coordinate)
+          notes[i] = Note.new(coordinate)
           j += 2
         end
-        return out
+        return notes
       else
         coordinate = MUSIC[:notes][n[0]]
         coordinate = [coordinate[0] + n[1].to_i, coordinate[1]]
