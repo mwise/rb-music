@@ -61,20 +61,13 @@ module RBMusic
     end
 
     def scale(name)
-      out = []
-      i = nil
+      notes = [add(:unison)]
 
-      scale = MUSIC[:scales][name.to_sym]
-
-      out.push(self.add(:unison))
-
-      scale.size.times do |i|
-        out[i + 1] = self.add(Interval.from_name(scale[i]))
+      MUSIC[:scales][name.to_sym].each do |interval_name|
+        notes << add(Interval.from_name(interval_name))
       end
 
-      out.push(self.add(:octave))
-
-      return out
+      notes << add(:octave)
     end
 
     def add(interval)
