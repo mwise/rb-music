@@ -23,7 +23,7 @@ module RBMusic
     def tone_semitone
       # multiply coord vector with [5 2;3 1] to get coordinate in tones and semitones
       # [5 2;3 1] is the inverse of [-1 2;3 -5], which is the coordinates of [tone; semitone]
-      [self.coord[0] * 5 + self.coord[1] * 3, self.coord[0] * 2 + self.coord[1] * 1]
+      [coord[0] * 5 + coord[1] * 3, coord[0] * 2 + coord[1] * 1]
     end
 
     def semitone
@@ -35,14 +35,14 @@ module RBMusic
       if interval.is_a?(String)
         interval = Interval.from_name(interval)
       end
-      Interval.new([self.coord[0] + interval.coord[0], self.coord[1] + interval.coord[1]])
+      Interval.new([coord[0] + interval.coord[0], coord[1] + interval.coord[1]])
     end
 
     def subtract(interval)
       if interval.is_a?(String)
         interval = Interval.from_name(interval)
       end
-      Interval.new([self.coord[0] - interval.coord[0], self.coord[1] - interval.coord[1]])
+      Interval.new([coord[0] - interval.coord[0], coord[1] - interval.coord[1]])
     end
 
   end
