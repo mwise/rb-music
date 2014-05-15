@@ -7,6 +7,14 @@ module RBMusic
 
   # notes - two dimensional [octave, fifth] - relative to the 'main' note
   NOTES = {
+    "Fbb" => [10, -17],
+    "Cbb" => [10, -16],
+    "Gbb" => [9, -15],
+    "Dbb" => [8, -14],
+    "Abb" => [8, -13],
+    "Ebb" => [7, -12],
+    "Bbb" => [7, -11],
+
     "Fb" => [6, -10],
     "Cb" => [5, -9],
     "Gb" => [5, -8],
@@ -29,7 +37,15 @@ module RBMusic
     "D#" => [-4, 7],
     "A#" => [-4, 8],
     "E#" => [-5, 9],
-    "B#" => [-5, 10]
+    "B#" => [-5, 10],
+
+    "Fx" => [-6, 11],
+    "Cx" => [-7, 12],
+    "Gx" => [-7, 13],
+    "Dx" => [-8, 14],
+    "Ax" => [-8, 15],
+    "Ex" => [-9, 16],
+    "Bx" => [-10, 17]
   }
 
   BASE_FREQ = 440  # A4 'main' note

@@ -148,6 +148,7 @@ describe RBMusic::Note do
       context "when the argument is a note with same frequency but a different latin name and/or octave" do
         it "is true" do
           Note.from_latin("E4").should be_enharmonic(Note.from_latin("Fb4"))
+          Note.from_latin("Fbb4").should be_enharmonic(Note.from_latin("Eb4"))
         end
       end
 
