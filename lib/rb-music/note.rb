@@ -8,32 +8,22 @@ module RBMusic
     end
 
     def self.from_latin(name)
-      n = name.split(/(\d+)/)
+      raise ArgumentError unless name.is_a?(String)
 
-      if (n.size > 3)
-        notes = []
-        j = 0
-        cycles = (n.size - 1) / 2
-        cycles.times do |i|
-          coordinate = NOTES[n[j]]
-          coordinate = [coordinate[0] + n[j + 1].to_i, coordinate[1]]
+      note_parts = name.split(/(\d+)/)
+      note_name = note_parts.first
+      octave = note_parts.last.to_i
 
-          coordinate[0] -= BASE_OFFSET[0]
-          coordinate[1] -= BASE_OFFSET[1]
-
-          notes[i] = Note.new(coordinate)
-          j += 2
-        end
-        return notes
-      else
-        coordinate = NOTES[n[0]]
-        coordinate = [coordinate[0] + n[1].to_i, coordinate[1]]
-
-        coordinate[0] -= BASE_OFFSET[0]
-        coordinate[1] -= BASE_OFFSET[1]
-
-        return Note.new(coordinate)
+      unless NOTES.has_key?(note_name) && note_parts.size < 3
+        raise ArgumentError
       end
+
+      coordinate = [NOTES[note_name][0] + octave, NOTES[note_name][1]]
+
+      coordinate[0] -= BASE_OFFSET[0]
+      coordinate[1] -= BASE_OFFSET[1]
+
+      Note.new(coordinate)
     end
 
     def frequency

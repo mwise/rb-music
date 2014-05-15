@@ -2,6 +2,101 @@ require_relative '../spec_helper'
 
 describe RBMusic::Note do
 
+  describe "class methods" do
+
+    describe "#from_latin" do
+
+      context "when given a single-character valid note name" do
+        let(:note_name) { RBMusic::NOTE_NAMES[0] }
+        let(:subject) { described_class.from_latin(note_name) }
+
+        it "returns a #{described_class}" do
+          subject.should be_a(described_class)
+        end
+
+        it "assigns the correct latin name" do
+          subject.latin.should == note_name
+        end
+
+        it "assigns a default octave of 0" do
+          subject.octave.should == 0
+        end
+      end
+
+      context "when given a single-character valid note name with octave" do
+        let(:note_name) { RBMusic::NOTE_NAMES[0] }
+        let(:octave) { 2 }
+        let(:subject) { described_class.from_latin("#{note_name}#{octave}") }
+
+        it "returns a #{described_class}" do
+          subject.should be_a(described_class)
+        end
+
+        it "assigns the correct latin name" do
+          subject.latin.should == note_name
+        end
+
+        it "assigns the correct octave" do
+          subject.octave.should == 2
+        end
+      end
+
+      context "when given a two-character valid note name with octave" do
+        let(:note_name) { "C#" }
+        let(:octave) { 3 }
+        let(:subject) { described_class.from_latin("#{note_name}#{octave}") }
+
+        it "returns a #{described_class}" do
+          subject.should be_a(described_class)
+        end
+
+        it "assigns the correct latin name" do
+          subject.latin.should == note_name
+        end
+
+        it "assigns the correct octave" do
+          subject.octave.should == 3
+        end
+      end
+
+      context "when given a single-character invalid note name" do
+        let(:note_name) { "Z" }
+
+        it "raises an exception" do
+          lambda {
+            described_class.from_latin(note_name)
+          }.should raise_error(RBMusic::ArgumentError)
+        end
+      end
+
+      context "when given an invalid note name / octave string" do
+        it "raises an exception" do
+          lambda {
+            described_class.from_latin("C0E3")
+          }.should raise_error(RBMusic::ArgumentError)
+        end
+      end
+
+      context "when given an empty string" do
+        it "raises an exception" do
+          lambda {
+            described_class.from_latin("")
+          }.should raise_error(RBMusic::ArgumentError)
+        end
+      end
+
+      context "when a non-string" do
+        it "raises an exception" do
+          lambda {
+            described_class.from_latin(1)
+          }.should raise_error(RBMusic::ArgumentError)
+        end
+      end
+
+    end
+
+  end
+
   describe "instance methods" do
     let(:subject) { Note.from_latin("A4") }
 
@@ -108,16 +203,6 @@ describe RBMusic::Note do
           result.coord.should == Interval.from_name("major_third").coord
         end
       end
-    end
-
-  end
-
-  describe "chords" do
-    let(:subject) { Note.from_latin("C4E4G4") }
-
-    it "is an array" do
-      subject.should be_a(Array)
-      subject[0].latin.should == "C"
     end
   end
 

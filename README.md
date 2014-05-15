@@ -28,11 +28,6 @@ n.frequency  # 440
 n.latin  # "A"
 n.octave # 4 
 
-cmaj = Note.from_latin('C4E4G4')  # chord = array of notes
-cmaj[0].frequency  # 261.625...
-cmaj[0].latin # "C"
-cmaj[0].octave # 4
-
 n = Note.from_latin('C4')  # base note for scale
 n.scale('major') # scale = array of notes  
 ```
