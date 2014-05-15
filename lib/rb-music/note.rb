@@ -27,7 +27,7 @@ module RBMusic
     end
 
     def frequency
-      BASE_FREQ * (2.0 ** ((coord[0] * 1200 + coord[1] * 700) / 1200))
+      BASE_FREQ * (2.0 ** ((coord[0] * 1200 + coord[1] * 700.0) / 1200.0))
     end
 
     def accidental
@@ -49,6 +49,13 @@ module RBMusic
     def ==(other)
       other.is_a?(Note) && other.latin == latin && other.octave == octave
     end
+
+    def enharmonic?(other)
+      raise ArgumentError unless other.is_a?(Note)
+
+      other.frequency == frequency
+    end
+    alias_method :enharmonically_equivalent_to?, :enharmonic?
 
     def scale(name)
       notes = [add(:unison)]

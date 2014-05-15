@@ -138,6 +138,41 @@ describe RBMusic::Note do
       end
     end
 
+    describe "#enharmonic?" do
+      context "when the argument is a note with the same latin name and octave" do
+        it "is true" do
+          subject.should be_enharmonic(Note.from_latin("A4"))
+        end
+      end
+
+      context "when the argument is a note with same frequency but a different latin name and/or octave" do
+        it "is true" do
+          Note.from_latin("E4").should be_enharmonic(Note.from_latin("Fb4"))
+        end
+      end
+
+      context "when the argument is a note with a different latin name and same octave" do
+        it "is false" do
+          subject.should_not be_enharmonic(Note.from_latin("B4"))
+          subject.should_not be_enharmonically_equivalent_to(Note.from_latin("B4"))
+        end
+      end
+
+      context "when the argument is a note with the same latin name and a different octave" do
+        it "is false" do
+          subject.should_not be_enharmonic(Note.from_latin("A5"))
+        end
+      end
+
+      context "when the argument is not a note" do
+        it "raises an exception" do
+          lambda {
+            subject.enharmonic?("foo")
+          }.should raise_exception(RBMusic::ArgumentError)
+        end
+      end
+    end
+
     describe "#add" do
       context "when given a string" do
         it "adds an interval from the string" do
