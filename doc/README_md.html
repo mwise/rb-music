@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>README - RDoc Documentation</title>
+
+<link href="./fonts.css" rel="stylesheet">
+<link href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/navigation.js"></script>
+<script src="./js/search_index.js"></script>
+<script src="./js/search.js"></script>
+<script src="./js/searcher.js"></script>
+<script src="./js/darkfish.js"></script>
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+<div class="nav-section">
+  <h3>Table of Contents</h3>
+
+  <ul class="link-list" role="directory">
+    <li><a href="#label-rb-music">rb-music</a>
+    <li><a href="#label-Installation">Installation</a>
+    <li><a href="#label-Overview">Overview</a>
+    <li><a href="#label-Note">Note</a>
+    <li><a href="#label-Interval">Interval</a>
+  </ul>
+</div>
+
+
+  <div id="project-metadata">
+    <div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Gemfile.html">Gemfile</a>
+  
+    <li><a href="./Gemfile_lock.html">Gemfile.lock</a>
+  
+    <li><a href="./Guardfile.html">Guardfile</a>
+  
+    <li><a href="./LICENSE.html">LICENSE</a>
+  
+    <li><a href="./README_md.html">README</a>
+  
+    <li><a href="./coverage/assets/0_8_0/application_css.html">application.css</a>
+  
+    <li><a href="./coverage/assets/0_8_0/application_js.html">application.js</a>
+  
+    <li><a href="./coverage/index_html.html">index.html</a>
+  
+    <li><a href="./projections_json.html">projections.json</a>
+  
+    <li><a href="./rb-music_gemspec.html">rb-music.gemspec</a>
+  
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-label="Page README.md">
+
+<h1 id="label-rb-music">rb-music<span><a href="#label-rb-music">&para;</a> <a href="#documentation">&uarr;</a></span></h1>
+
+<p><strong>rb-music</strong> is a Ruby gem for working with musical notes,
+scales and intervals. It is basically a direct port of the wonderful <a
+href="https://github.com/gregjopa/music.js">music.js</a> library by Greg
+Jopa.</p>
+
+<h2 id="label-Installation">Installation<span><a href="#label-Installation">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<p>In your Gemfile:</p>
+
+<pre>gem &#39;rb-music&#39;, git: &#39;https://github.com/mwise/rb-music&#39;, branch: &#39;master&#39;</pre>
+
+<p>In your Ruby code:</p>
+
+<pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&#39;rb-music&#39;</span>
+</pre>
+
+<h2 id="label-Overview">Overview<span><a href="#label-Overview">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<h3 id="label-Note">Note<span><a href="#label-Note">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+
+<p><code>Note.from_latin(name)</code>: Note by latin name and octave</p>
+
+<pre class="ruby"><span class="ruby-identifier">n</span> = <span class="ruby-constant">Note</span>.<span class="ruby-identifier">from_latin</span>(<span class="ruby-string">&#39;A4&#39;</span>);  <span class="ruby-comment"># single note</span>
+<span class="ruby-identifier">n</span>.<span class="ruby-identifier">frequency</span>  <span class="ruby-comment"># 440</span>
+<span class="ruby-identifier">n</span>.<span class="ruby-identifier">latin</span>  <span class="ruby-comment"># &quot;A&quot;</span>
+<span class="ruby-identifier">n</span>.<span class="ruby-identifier">octave</span> <span class="ruby-comment"># 4 </span>
+
+<span class="ruby-identifier">n</span> = <span class="ruby-constant">Note</span>.<span class="ruby-identifier">from_latin</span>(<span class="ruby-string">&#39;C4&#39;</span>)  <span class="ruby-comment"># base note for scale</span>
+<span class="ruby-identifier">n</span>.<span class="ruby-identifier">scale</span>(<span class="ruby-string">&#39;major&#39;</span>) <span class="ruby-comment"># scale = array of notes</span>
+</pre>
+
+<h3 id="label-Interval">Interval<span><a href="#label-Interval">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
+
+<p><code>Interval.from_name(name)</code>: Interval by name</p>
+
+<p><code>Interval.from_semitones(num)</code>: Interval by semitones</p>
+
+<pre class="ruby"><span class="ruby-constant">Interval</span>.<span class="ruby-identifier">from_name</span>(<span class="ruby-string">&#39;fifth&#39;</span>) <span class="ruby-comment"># define by name</span>
+<span class="ruby-identifier">whole_step</span> = <span class="ruby-constant">Interval</span>.<span class="ruby-identifier">from_semitones</span>(<span class="ruby-value">2</span>) <span class="ruby-comment"># define by # of semitones</span>
+
+<span class="ruby-identifier">c</span> = <span class="ruby-constant">Note</span>.<span class="ruby-identifier">from_latin</span>(<span class="ruby-string">&#39;C3&#39;</span>)
+
+<span class="ruby-comment"># use intervals to transpose notes</span>
+<span class="ruby-identifier">d</span> = <span class="ruby-identifier">c</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">whole_step</span>) 
+
+<span class="ruby-comment"># use intervals to define chords</span>
+<span class="ruby-identifier">cmaj</span> = <span class="ruby-identifier">c</span>.<span class="ruby-identifier">add</span>([<span class="ruby-string">&#39;unison&#39;</span>,<span class="ruby-string">&#39;major third&#39;</span>,<span class="ruby-string">&#39;fifth&#39;</span>])
+</pre>
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://rdoc.rubyforge.org">RDoc</a> 4.1.1.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
