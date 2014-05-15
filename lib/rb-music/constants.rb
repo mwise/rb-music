@@ -1,4 +1,6 @@
 module RBMusic
+  Error = Class.new(StandardError)
+  ArgumentError = Class.new(ArgumentError)
 
   NOTE_NAMES = ["F", "C", "G", "D", "A", "E", "B"]
   ACCIDENTALS = ["bb", "b", "", "#", "x"]
