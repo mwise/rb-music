@@ -112,6 +112,32 @@ describe RBMusic::Note do
       subject.octave.should == 4
     end
 
+    describe "#==" do
+      context "when the argument is a note with the same latin name and octave" do
+        it "is true" do
+          subject.should == Note.from_latin("A4")
+        end
+      end
+
+      context "when the argument is a note with a different latin name and same octave" do
+        it "is false" do
+          subject.should_not == Note.from_latin("B4")
+        end
+      end
+
+      context "when the argument is a note with the same latin name and a different octave" do
+        it "is false" do
+          subject.should_not == Note.from_latin("A5")
+        end
+      end
+
+      context "when the argument is not a note" do
+        it "is false" do
+          subject.should_not == "foo"
+        end
+      end
+    end
+
     describe "#add" do
       context "when given a string" do
         it "adds an interval from the string" do

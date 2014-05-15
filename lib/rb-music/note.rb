@@ -45,6 +45,10 @@ module RBMusic
       noteName + accidentalName
     end
 
+    def ==(other)
+      other.is_a?(Note) && other.latin == latin && other.octave == octave
+    end
+
     def scale(name)
       notes = [add(:unison)]
 
