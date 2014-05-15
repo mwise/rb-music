@@ -36,13 +36,14 @@ module RBMusic
 
     def octave
       # calculate octave of base note without accidentals
-      coord[0] + BASE_OFFSET[0] + 4 * accidental + ((coord[1] + BASE_OFFSET[1] - 7 * accidental) / 2).floor
+      @octave ||= coord[0] + BASE_OFFSET[0] + 4 * accidental + ((coord[1] + BASE_OFFSET[1] - 7 * accidental) / 2).floor
     end
 
     def latin
+      return @latin if @latin
       noteName = NOTE_NAMES[coord[1] + BASE_OFFSET[1] - accidental * 7 + 3]
       accidentalName = ACCIDENTALS[accidental + 2]
-      noteName + accidentalName
+      @latin ||= noteName + accidentalName
     end
 
     def ==(other)
