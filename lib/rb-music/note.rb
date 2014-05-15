@@ -15,52 +15,50 @@ module RBMusic
         j = 0
         cycles = (n.size - 1) / 2
         cycles.times do |i|
-          coordinate = MUSIC[:notes][n[j]]
+          coordinate = NOTES[n[j]]
           coordinate = [coordinate[0] + n[j + 1].to_i, coordinate[1]]
 
-          coordinate[0] -= MUSIC[:baseOffset][0]
-          coordinate[1] -= MUSIC[:baseOffset][1]
+          coordinate[0] -= BASE_OFFSET[0]
+          coordinate[1] -= BASE_OFFSET[1]
 
           notes[i] = Note.new(coordinate)
           j += 2
         end
         return notes
       else
-        coordinate = MUSIC[:notes][n[0]]
+        coordinate = NOTES[n[0]]
         coordinate = [coordinate[0] + n[1].to_i, coordinate[1]]
 
-        coordinate[0] -= MUSIC[:baseOffset][0]
-        coordinate[1] -= MUSIC[:baseOffset][1]
+        coordinate[0] -= BASE_OFFSET[0]
+        coordinate[1] -= BASE_OFFSET[1]
 
         return Note.new(coordinate)
       end
     end
 
     def frequency
-      MUSIC[:baseFreq] * (2.0 ** ((coord[0] * 1200 + coord[1] * 700) / 1200))
+      BASE_FREQ * (2.0 ** ((coord[0] * 1200 + coord[1] * 700) / 1200))
     end
 
     def accidental
-      @accidental ||= ((coord[1] + MUSIC[:baseOffset][1]) / 7.0).round
+      @accidental ||= ((coord[1] + BASE_OFFSET[1]) / 7.0).round
     end
 
     def octave
       # calculate octave of base note without accidentals
-      coord[0] + MUSIC[:baseOffset][0] + 4 * accidental + ((coord[1] + MUSIC[:baseOffset][1] - 7 * accidental) / 2).floor
+      coord[0] + BASE_OFFSET[0] + 4 * accidental + ((coord[1] + BASE_OFFSET[1] - 7 * accidental) / 2).floor
     end
 
     def latin
-      noteNames = ['F', 'C', 'G', 'D', 'A', 'E', 'B']
-      accidentals = ['bb', 'b', '', '#', 'x']
-      noteName = noteNames[coord[1] + MUSIC[:baseOffset][1] - accidental * 7 + 3]
-      accidentalName = accidentals[accidental + 2]
+      noteName = NOTE_NAMES[coord[1] + BASE_OFFSET[1] - accidental * 7 + 3]
+      accidentalName = ACCIDENTALS[accidental + 2]
       noteName + accidentalName
     end
 
     def scale(name)
       notes = [add(:unison)]
 
-      MUSIC[:scales][name.to_sym].each do |interval_name|
+      SCALES[name.to_sym].each do |interval_name|
         notes << add(Interval.from_name(interval_name))
       end
 

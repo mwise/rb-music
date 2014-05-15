@@ -15,7 +15,7 @@ describe RBMusic::Interval do
       it "looks up the correct coordinates" do
         subject = described_class.from_name("major_second")
 
-        subject.coord.should == described_class::MUSIC[:intervals][:major_second]
+        subject.coord.should == described_class::INTERVALS[:major_second]
       end
     end
 
@@ -23,7 +23,7 @@ describe RBMusic::Interval do
       it "looks up the correct coordinates" do
         subject = described_class.from_semitones(3)
 
-        subject.coord.should == described_class::MUSIC[:intervals_semitones][3]
+        subject.coord.should == described_class::INTERVALS_SEMITONES[3]
       end
     end
 

@@ -8,11 +8,11 @@ module RBMusic
     end
 
     def self.from_name(name)
-      Interval.new(MUSIC[:intervals][name.to_sym])
+      Interval.new(INTERVALS[name.to_sym])
     end
 
     def self.from_semitones(num)
-      Interval.new(MUSIC[:intervals_semitones][num])
+      Interval.new(INTERVALS_SEMITONES[num])
     end
 
     def self.from_tones_semitones(tone_semitone)
