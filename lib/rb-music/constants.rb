@@ -75,7 +75,7 @@ module RBMusic
     natural_minor: [:major_second, :minor_third, :fourth, :fifth, :minor_sixth, :minor_seventh],
     harmonic_minor: [:major_second, :minor_third, :fourth, :fifth, :minor_sixth, :major_seventh],
     major_pentatonic: [:major_second, :major_third, :fifth, :major_sixth],
-    minor_pentatonic: [:minor_third, :fourth, :minor_sixth, 'minor_seventh']
+    minor_pentatonic: [:minor_third, :fourth, :minor_sixth, :minor_seventh]
   }
 
 end
