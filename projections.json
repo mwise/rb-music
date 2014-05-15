@@ -1,0 +1,12 @@
+{
+  "lib/rb-music/*.rb": {
+    "command": "sources",
+    "alternate": "./spec/rb-music/%s_spec.rb",
+    "reverse_layout": false
+  },
+  "spec/rb-music/*_spec.rb": {
+    "command": "specs",
+    "alternate": "./lib/rb-music/%s.rb",
+    "reverse_layout": true
+  }
+}
