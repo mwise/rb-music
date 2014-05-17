@@ -100,8 +100,21 @@ describe RBMusic::Note do
   describe "instance methods" do
     let(:subject) { Note.from_latin("A4") }
 
-    it "has a frequency" do
-      subject.frequency.should == 440
+    describe "#frequency" do
+      [
+        ["A4", 440],
+        ["A#4", 466.16],
+        ["C4", 261.63],
+        ["B3", 246.94],
+        ["Ax3", 246.94]
+      ].each do |pair|
+
+        it "is #{pair[1]} for #{pair[0]}" do
+          Note.from_latin(pair[0]).frequency.round(2).should == pair[1]
+        end
+
+      end
+
     end
 
     it "has a latin name" do
@@ -264,6 +277,22 @@ describe RBMusic::Note do
 
           result.coord.should == Interval.from_name("major_third").coord
         end
+      end
+    end
+  end
+
+  describe "#midi_note_number" do
+    [
+      ["C3", 48],
+      ["B2", 47],
+      ["Ax2", 47],
+      ["C4", 60],
+      ["Cb4", 59],
+      ["C#4", 61],
+      ["Db4", 61]
+    ].each do |pair|
+      it "maps #{pair[0]} to #{pair[1]}" do
+        Note.from_latin(pair[0]).midi_note_number.should == pair[1]
       end
     end
   end

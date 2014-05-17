@@ -41,9 +41,8 @@ module RBMusic
 
     def latin
       return @latin if @latin
-      noteName = NOTE_NAMES[coord[1] + BASE_OFFSET[1] - accidental * 7 + 3]
       accidentalName = ACCIDENTALS[accidental + 2]
-      @latin ||= noteName + accidentalName
+      @latin ||= base_note_name + accidentalName
     end
 
     def ==(other)
@@ -56,6 +55,11 @@ module RBMusic
       other.frequency == frequency
     end
     alias_method :enharmonically_equivalent_to?, :enharmonic?
+
+    def midi_note_number
+      # see http://www.phys.unsw.edu.au/jw/notes.html
+      12 * Math.log2(frequency / 440) + 69
+    end
 
     def scale(name, octaves = 1)
       NoteSet.from_scale(Scale.new(latin, name), octave, octaves)
@@ -91,6 +95,12 @@ module RBMusic
 
       # if input is another note return the difference as an Interval
       that.is_a?(Note) ? Interval.new(coordinate) : Note.new(coordinate)
+    end
+
+    private
+
+    def base_note_name
+      @base_note_name ||= NOTE_NAMES[coord[1] + BASE_OFFSET[1] - accidental * 7 + 3]
     end
   end
 
