@@ -27,6 +27,7 @@ n = Note.from_latin('A4');  # single note
 n.frequency  # 440
 n.latin  # "A"
 n.octave # 4
+n.midi_note_number # 69
 
 n = Note.from_latin('C4')  # base note for scale
 n.scale('major') #  NoteSet built from the given note and scale
