@@ -51,6 +51,13 @@ describe RBMusic::Scale do
         subject.degree_count.should == subject.degrees.size
       end
     end
+
+    describe "#name" do
+      it "is the human-readable name" do
+        subject.name.should == "C Major"
+        Scale.new("D#", "harmonic_minor").name.should == "D# Harmonic Minor"
+      end
+    end
   end
 
 end
