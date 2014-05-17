@@ -1,8 +1,82 @@
 require_relative '../spec_helper'
 
-describe RBMusic::NoteSet do
+describe RBMusic::NoteSet, focus: true do
 
   describe "instance methods" do
+
+    describe "#from_scale" do
+      let(:scale) { RBMusic::Scale.new("C", "major") }
+
+      context "without any arguments" do
+        it "raises an ArgumentError"  do
+          lambda {
+            described_class.from_scale
+          }.should raise_error(ArgumentError)
+        end
+      end
+
+      context "without a valid RBMusic::Scale" do
+        it "raises an ArgumentError"  do
+          lambda {
+            described_class.from_scale("foo")
+          }.should raise_error(RBMusic::ArgumentError)
+        end
+      end
+
+      context "with a RBMusic::Scale only" do
+        let(:subject) { described_class.from_scale(scale) }
+
+        it "returns a #{described_class}" do
+          subject.should be_a(described_class)
+        end
+
+        it "builds a note for each scale degree in the default octave ranage (1)" do
+          subject.notes.length.should == scale.degree_count
+        end
+
+        it "builds notes from the default octave (0)" do
+          subject.notes[0].should == Note.from_latin("#{scale.key}0")
+        end
+      end
+
+      context "with a RBMusic::Scale and an octave" do
+        let(:octave) { 3 }
+        let(:subject) { described_class.from_scale(scale, octave) }
+
+        it "builds notes for the scale in the given" do
+          subject.notes[0].should == Note.from_latin("#{scale.key}#{octave}")
+          subject.notes.length.should == scale.degree_count
+        end
+      end
+
+      context "with a RBMusic::Scale, octave and octave range" do
+        let(:octave) { 3 }
+        let(:octaves) { 2 }
+        let(:subject) { described_class.from_scale(scale, octave, octaves) }
+
+        it "builds notes for the given octave range" do
+          subject.notes.length.should == scale.degree_count * octaves
+        end
+      end
+
+      context "with an invalid octave range" do
+        it "raises an ArgumentError" do
+          lambda {
+            described_class.from_scale(scale, 3, -1)
+          }.should raise_exception(RBMusic::ArgumentError)
+        end
+      end
+    end
+
+    describe "#initialize" do
+      let(:notes_array) { ["foo", "bar"] }
+
+      it "assigns the notes array" do
+        subject = described_class.new(notes_array)
+
+        subject.notes.should == notes_array
+      end
+    end
 
     describe "#add" do
       let(:f4) { Note.from_latin("F4") }
