@@ -268,21 +268,21 @@ describe RBMusic::Note do
     end
   end
 
-  describe "scales" do
-    let(:subject) {  }
+  describe "#scale" do
+    let(:subject) { Note.from_latin("C4") }
+    let(:scale_name) { "major" }
+    let(:scale) { Scale.new(subject.latin, scale_name) }
 
-    it "calculates a C major scale" do
-      scale = Note.from_latin("C4").scale("major")
-      scale.should be_a(Array)
-      scale[0].latin.should == "C"
+    it "is a note set with the default octave and range" do
+      result = subject.scale(scale_name)
+
+      result.should == NoteSet.from_scale(scale, subject.octave, 1)
     end
 
-    it "calculates a enharmonic scales correctly" do
-      scale = Note.from_latin("Bb4").scale("major")
-      scale.map(&:latin).should == ["Bb", "C", "D", "Eb", "F", "G", "A", "Bb"]
+    it "accepts an octave range" do
+      result = subject.scale(scale_name, 2)
 
-      scale = Note.from_latin("A#4").scale("major")
-      scale.map(&:latin).should == ["A#", "B#", "Cx", "D#", "E#", "Fx", "Gx", "A#"]
+      result.should == NoteSet.from_scale(scale, subject.octave, 2)
     end
   end
 

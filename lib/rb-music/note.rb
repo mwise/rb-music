@@ -57,14 +57,8 @@ module RBMusic
     end
     alias_method :enharmonically_equivalent_to?, :enharmonic?
 
-    def scale(name)
-      notes = [add(:unison)]
-
-      SCALES[name.to_sym].each do |interval_name|
-        notes << add(Interval.from_name(interval_name))
-      end
-
-      notes << add(:octave)
+    def scale(name, octaves = 1)
+      NoteSet.from_scale(Scale.new(latin, name), octave, octaves)
     end
 
     def add(that)

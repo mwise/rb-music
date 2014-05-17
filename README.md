@@ -26,10 +26,10 @@ require 'rb-music'
 n = Note.from_latin('A4');  # single note
 n.frequency  # 440
 n.latin  # "A"
-n.octave # 4 
+n.octave # 4
 
 n = Note.from_latin('C4')  # base note for scale
-n.scale('major') # scale = array of notes  
+n.scale('major') #  NoteSet built from the given note and scale
 ```
 
 ### Interval
@@ -45,7 +45,7 @@ whole_step = Interval.from_semitones(2) # define by # of semitones
 c = Note.from_latin('C3')
 
 # use intervals to transpose notes
-d = c.add(whole_step) 
+d = c.add(whole_step)
 
 # use intervals to define chords
 cmaj = c.add(['unison','major third','fifth'])

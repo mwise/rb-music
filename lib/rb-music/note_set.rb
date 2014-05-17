@@ -20,12 +20,21 @@ module RBMusic
       notes = []
       octaves.times do |i|
         notes += scale.degrees.map do |interval_name|
-          root_note.add(interval_name)
+          note = root_note.add(interval_name)
+          i.times do |octave_offset|
+            note = note.add(:octave)
+          end
+          note
         end
       end
 
       self.new(notes)
     end
+
+    def ==(other)
+      @notes == other.notes
+    end
+    alias_method :eql?, :==
 
     def add(that)
       NoteSet.new(@notes.map { |note| note.add(that) })

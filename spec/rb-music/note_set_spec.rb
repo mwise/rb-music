@@ -1,9 +1,8 @@
 require_relative '../spec_helper'
 
-describe RBMusic::NoteSet, focus: true do
+describe RBMusic::NoteSet do
 
-  describe "instance methods" do
-
+  describe "class methods" do
     describe "#from_scale" do
       let(:scale) { RBMusic::Scale.new("C", "major") }
 
@@ -43,7 +42,7 @@ describe RBMusic::NoteSet, focus: true do
         let(:octave) { 3 }
         let(:subject) { described_class.from_scale(scale, octave) }
 
-        it "builds notes for the scale in the given" do
+        it "builds notes for the scale from the given octave" do
           subject.notes[0].should == Note.from_latin("#{scale.key}#{octave}")
           subject.notes.length.should == scale.degree_count
         end
@@ -55,6 +54,10 @@ describe RBMusic::NoteSet, focus: true do
         let(:subject) { described_class.from_scale(scale, octave, octaves) }
 
         it "builds notes for the given octave range" do
+          degrees = scale.degree_count
+
+          subject.notes[0].should == Note.from_latin("#{scale.key}#{octave}")
+          subject.notes[degrees].should == Note.from_latin("#{scale.key}#{octave + 1}")
           subject.notes.length.should == scale.degree_count * octaves
         end
       end
@@ -67,6 +70,9 @@ describe RBMusic::NoteSet, focus: true do
         end
       end
     end
+  end
+
+  describe "instance methods" do
 
     describe "#initialize" do
       let(:notes_array) { ["foo", "bar"] }
@@ -75,6 +81,22 @@ describe RBMusic::NoteSet, focus: true do
         subject = described_class.new(notes_array)
 
         subject.notes.should == notes_array
+      end
+    end
+
+    describe "#==" do
+      let(:notes) { ["foo", "bar"] }
+
+      context "when all the notes are equal" do
+        it "is true" do
+          described_class.new(notes).should == described_class.new(notes)
+        end
+      end
+
+      context "when note all the notes are equal" do
+        it "is false" do
+          described_class.new(notes).should_not == described_class.new([1, 2])
+        end
       end
     end
 
