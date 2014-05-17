@@ -15,12 +15,6 @@ module RBMusic
     def degree_count
       @degree_count ||= @degrees.size
     end
-
-    def notes_in_range(start_note, end_note)
-      raise ArgumentError unless start_note.is_a?(Note) && end_note.is_a?(Note)
-
-      NoteSet.new()
-    end
   end
 
 end
