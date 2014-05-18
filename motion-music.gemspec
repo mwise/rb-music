@@ -1,5 +1,5 @@
-$LOAD_PATH.push File.expand_path("../../lib", __FILE__)
-require "./version"
+$LOAD_PATH.push File.expand_path("../lib", __FILE__)
+require "motion-music/version"
 
 Gem::Specification.new do |s|
   s.name        = "motion-music"
@@ -11,10 +11,10 @@ Gem::Specification.new do |s|
   s.author      = "Mark Wise"
   s.authors     = ["Mark Wise"]
   s.email       = ["markmediadude@mgail.comm"]
-  s.files       = ["../lib/motion-music.rb"]
+  s.files       = ["lib/motion-music.rb"]
   s.homepage    = "https://rubygems.org/mwise/motion-music"
 
   s.require_paths = ["lib/motion-music"]
 
-  s.extra_rdoc_files = ['../README.md']
+  s.extra_rdoc_files = ['README.md']
 end
