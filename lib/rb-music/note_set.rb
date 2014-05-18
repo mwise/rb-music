@@ -1,11 +1,7 @@
-require 'forwardable'
-
 module RBMusic
 
   class NoteSet
     include Enumerable
-    extend Forwardable
-    def_delegators :@notes, :each, :<<, :[], :map
 
     attr_accessor :notes
 
@@ -29,6 +25,22 @@ module RBMusic
       end
 
       self.new(notes)
+    end
+
+    def each(&block)
+      @notes.each(&block)
+    end
+
+    def [](index)
+      @notes[index]
+    end
+
+    def <<(other)
+      @notes << other
+    end
+
+    def map(&block)
+      @notes.map(&block)
     end
 
     def ==(other)
