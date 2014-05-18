@@ -3,3 +3,4 @@
 .ruby-gemset
 coverage
 Gemfile.lock
+*.gem
