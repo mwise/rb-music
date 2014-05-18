@@ -11,10 +11,10 @@ Gem::Specification.new do |s|
   s.author      = "Mark Wise"
   s.authors     = ["Mark Wise"]
   s.email       = ["markmediadude@mgail.comm"]
-  s.files       = ["lib/motion-music.rb"]
+  s.files       = `git ls-files`.split($\)
   s.homepage    = "https://rubygems.org/mwise/motion-music"
 
-  s.require_paths = ["lib/motion-music"]
+  s.require_paths = ["lib"]
 
   s.extra_rdoc_files = ['README.md']
 end
