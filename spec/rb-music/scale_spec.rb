@@ -60,4 +60,29 @@ describe RBMusic::Scale do
     end
   end
 
+  describe "scale types" do
+    let(:note) { Note.from_latin("C4") }
+
+    {
+      "major" => ["C", "D", "E", "F", "G", "A", "B"],
+      "natural_minor" => ["C", "D", "Eb", "F", "G", "Ab", "Bb"],
+      "natural_minor" => ["C", "D", "Eb", "F", "G", "Ab", "Bb"],
+      "harmonic_minor" => ["C", "D", "Eb", "F", "G", "Ab", "B"],
+      "major_pentatonic" => ["C", "D", "E", "G", "A"],
+      "minor_pentatonic" => ["C", "Eb", "F", "G", "Bb"],
+      "blues" => ["C", "Eb", "F", "F#", "G", "Bb"],
+      "ionian" => ["C", "D", "E", "F", "G", "A", "B"],
+      "dorian" => ["C", "D", "Eb", "F", "G", "A", "Bb"],
+      "phrygian" => ["C", "Db", "Eb", "F", "G", "A", "Bb"],
+      "lydian" => ["C", "D", "E", "F#", "G", "A", "B"],
+      "mixolydian" => ["C", "D", "E", "F", "G", "A", "Bb"],
+      "aeolian" => ["C", "D", "Eb", "F", "G", "Ab", "Bb"],
+      "locrian" => ["C", "Db", "Eb", "F", "Gb", "Ab", "Bb"],
+    }.each_pair do |key, value|
+      it "calculates a #{key} scale" do
+        note.scale(key).map(&:latin).should == value
+      end
+    end
+  end
+
 end

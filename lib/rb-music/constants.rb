@@ -91,7 +91,15 @@ module RBMusic
     natural_minor: [:major_second, :minor_third, :fourth, :fifth, :minor_sixth, :minor_seventh],
     harmonic_minor: [:major_second, :minor_third, :fourth, :fifth, :minor_sixth, :major_seventh],
     major_pentatonic: [:major_second, :major_third, :fifth, :major_sixth],
-    minor_pentatonic: [:minor_third, :fourth, :minor_sixth, :minor_seventh]
+    minor_pentatonic: [:minor_third, :fourth, :fifth, :minor_seventh],
+    blues: [:minor_third, :fourth, :augmented_fourth, :fifth, :minor_seventh],
+    dorian: [:major_second, :minor_third, :fourth, :fifth, :major_sixth, :minor_seventh],
+    phrygian: [:minor_second, :minor_third, :fourth, :fifth, :major_sixth, :minor_seventh],
+    lydian: [:major_second, :major_third, :augmented_fourth, :fifth, :major_sixth, :major_seventh],
+    mixolydian: [:major_second, :major_third, :fourth, :fifth, :major_sixth, :minor_seventh],
+    locrian: [:minor_second, :minor_third, :fourth, :diminished_fifth, :minor_sixth, :minor_seventh],
   }
+  SCALES[:ionian] = SCALES[:major]
+  SCALES[:aeolian] = SCALES[:natural_minor]
 
 end
