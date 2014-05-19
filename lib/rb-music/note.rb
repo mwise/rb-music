@@ -58,7 +58,7 @@ module RBMusic
 
     def midi_note_number
       # see http://www.phys.unsw.edu.au/jw/notes.html
-      12 * Math.log2(frequency / 440) + 69
+      @note_number ||= (12 * Math.log2(frequency / 440) + 69).round
     end
 
     def scale(name, octaves = 1)
