@@ -100,6 +100,20 @@ describe RBMusic::NoteSet do
       end
     end
 
+    describe "#each" do
+      let(:notes) { [double(foo: true), double(foo: true)] }
+      let(:subject) { described_class.new(notes) }
+
+      it "delegates to the notes array" do
+        notes[0].should_receive(:foo)
+        notes[1].should_receive(:foo)
+
+        subject.each do |note|
+          note.foo
+        end
+      end
+    end
+
     describe "#size" do
       let(:notes) { ["foo", "bar"] }
 
