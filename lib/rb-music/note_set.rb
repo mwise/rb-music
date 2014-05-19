@@ -48,6 +48,10 @@ module RBMusic
     end
     alias_method :eql?, :==
 
+    def size
+      @notes.size
+    end
+
     def add(that)
       NoteSet.new(@notes.map { |note| note.add(that) })
     end

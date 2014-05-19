@@ -100,6 +100,14 @@ describe RBMusic::NoteSet do
       end
     end
 
+    describe "#size" do
+      let(:notes) { ["foo", "bar"] }
+
+      it "is the amount of notes in the set" do
+        described_class.new(notes).size.should == 2
+      end
+    end
+
     describe "#add" do
       let(:f4) { Note.from_latin("F4") }
       let(:g4) { Note.from_latin("G4") }
