@@ -38,6 +38,7 @@ module RBMusic
     def <<(other)
       @notes << other
     end
+    alias_method :push, :<<
 
     def map(&block)
       @notes.map(&block)
