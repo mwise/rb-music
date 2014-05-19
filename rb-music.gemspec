@@ -22,8 +22,8 @@ Gem::Specification.new do |s|
 
   s.extra_rdoc_files = ['README.md']
 
-  s.add_development_dependency("guard-rspec")
-  s.add_development_dependency("rake")
-  s.add_development_dependency("rspec")
-  s.add_development_dependency("simplecov")
+  s.add_development_dependency("guard-rspec", "~> 4.2", ">= 4.2.8")
+  s.add_development_dependency("rake", "~> 10.3", ">= 10.3.1")
+  s.add_development_dependency("rspec", "~> 2.14", ">= 2.14.1")
+  s.add_development_dependency("simplecov", "~> 0.8", ">= 0.8.2")
 end
