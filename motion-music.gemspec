@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.author      = "Mark Wise"
   s.authors     = ["Mark Wise"]
   s.email       = ["markmediadude@mgail.comm"]
-  s.homepage    = "https://rubygems.org/mwise/motion-music"
+  s.homepage    = "https://github.com/mwise/rb-music"
 
   s.require_paths = ["lib"]
   s.files       = `git ls-files lib`.split($\)
