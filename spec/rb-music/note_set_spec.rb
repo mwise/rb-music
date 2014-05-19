@@ -114,6 +114,18 @@ describe RBMusic::NoteSet do
       end
     end
 
+    describe "#<<" do
+      let(:notes) { ["foo", "bar"] }
+      let(:note) { "baz" }
+      let(:subject) { described_class.new(notes) }
+
+      it "adds to the notes array" do
+        subject << note
+
+        subject.notes.should == ["foo", "bar", "baz"]
+      end
+    end
+
     describe "#size" do
       let(:notes) { ["foo", "bar"] }
 
