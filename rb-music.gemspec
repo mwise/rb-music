@@ -11,12 +11,11 @@ Gem::Specification.new do |s|
   s.author      = "Mark Wise"
   s.authors     = ["Mark Wise"]
   s.email       = ["markmediadude@mgail.comm"]
-  s.files       = ["lib/rb-music.rb"]
   s.homepage    = "https://rubygems.org/mwise/rb-music"
 
   s.require_paths = ["lib"]
   s.required_ruby_version = ">= 1.8.6"
-  s.files         = `git ls-files -- lib/*`.split("\n")
+  s.files       = ["lib/rb-music.rb"]
   s.files         += %w[README.md LICENSE]
   s.test_files    = `git ls-files -- spec/*`.split("\n")
 
