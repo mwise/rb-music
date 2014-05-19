@@ -1,3 +1,3 @@
 module MotionMusic
-  VERSION = "0.0.4" unless defined? MotionMusic::VERSION
+  VERSION = "0.0.5" unless defined? MotionMusic::VERSION
 end
