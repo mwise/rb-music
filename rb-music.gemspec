@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
 
   s.require_paths = ["lib"]
   s.required_ruby_version = ">= 1.8.6"
-  s.files       = ["lib/rb-music.rb"]
+  s.files       = `git ls-files lib/rb-music*`.split($\)
   s.files         += %w[README.md LICENSE]
   s.test_files    = `git ls-files -- spec/*`.split("\n")
 
