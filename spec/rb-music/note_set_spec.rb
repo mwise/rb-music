@@ -70,6 +70,76 @@ describe RBMusic::NoteSet do
         end
       end
     end
+
+    describe "#from_scale_in_note_range" do
+      let(:scale) { RBMusic::Scale.new("C", "major") }
+
+      context "without any arguments" do
+        it "raises an ArgumentError"  do
+          lambda {
+            described_class.from_scale_in_note_range
+          }.should raise_error(ArgumentError)
+        end
+      end
+
+      context "without a valid RBMusic::Scale" do
+        it "raises an ArgumentError"  do
+          lambda {
+            described_class.from_scale_in_note_range("foo", "bar", "baz")
+          }.should raise_error(RBMusic::ArgumentError)
+        end
+      end
+
+      context "with a RBMusic::Scale only" do
+        it "raises an ArgumentError"  do
+          lambda {
+            described_class.from_scale_in_note_range(scale, "bar", "baz")
+          }.should raise_error(RBMusic::ArgumentError)
+        end
+      end
+
+      context "with a valid Scale and 'from' Note" do
+        let(:from_note) { Note.from_latin("C4") }
+        it "raises an ArgumentError"  do
+          lambda {
+            described_class.from_scale_in_note_range(scale, from_note, "baz")
+          }.should raise_error(RBMusic::ArgumentError)
+        end
+      end
+
+      context "when the 'to' Note is lower than the 'from' Note" do
+        let(:from_note) { Note.from_latin("F5") }
+        let(:to_note) { Note.from_latin("F4") }
+
+        it "an empty NoteSet" do
+          notes = described_class.from_scale_in_note_range(scale, from_note, to_note)
+
+          notes.map(&:latin).should == []
+        end
+      end
+
+      context "with a valid Scale, 'from' Note and 'to' Note" do
+        let(:from_note) { Note.from_latin("F4") }
+        let(:to_note) { Note.from_latin("F5") }
+
+        it "returns the scale notes in the given range" do
+          notes = described_class.from_scale_in_note_range(scale, from_note, to_note)
+
+          notes.map(&:latin).should == ["F", "G", "A", "B", "C", "D", "E", "F"]
+        end
+      end
+
+      context "a non-diatonic 'from' Note and 'to' Note" do
+        let(:from_note) { Note.from_latin("F#4") }
+        let(:to_note) { Note.from_latin("F#5") }
+
+        it "returns the scale notes in the given range" do
+          notes = described_class.from_scale_in_note_range(scale, from_note, to_note)
+
+          notes.map(&:latin).should == ["G", "A", "B", "C", "D", "E", "F"]
+        end
+      end
+    end
   end
 
   describe "instance methods" do

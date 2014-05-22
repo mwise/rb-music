@@ -27,6 +27,30 @@ module RBMusic
       self.new(notes)
     end
 
+    def self.from_scale_in_note_range(scale, from_note, to_note)
+      raise ArgumentError unless scale.is_a?(Scale) &&
+                              from_note.is_a?(Note) &&
+                              to_note.is_a?(Note)
+
+      root_note = Note.from_latin("#{scale.key}#{from_note.octave}")
+
+      if root_note.midi_note_number > from_note.midi_note_number
+        root_note = root_note.subtract(:octave)
+      end
+
+      octaves = to_note.octave - root_note.octave + 1
+      return self.new([]) if octaves <= 0
+
+      notes = self.from_scale(scale, root_note.octave, octaves)
+
+      notes = notes.select do |note|
+        note.midi_note_number >= from_note.midi_note_number &&
+          note.midi_note_number <= to_note.midi_note_number
+      end
+
+      self.new(notes)
+    end
+
     def each(&block)
       @notes.each(&block)
     end
