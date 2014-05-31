@@ -98,6 +98,10 @@ module RBMusic
     lydian: [:major_second, :major_third, :augmented_fourth, :fifth, :major_sixth, :major_seventh],
     mixolydian: [:major_second, :major_third, :fourth, :fifth, :major_sixth, :minor_seventh],
     locrian: [:minor_second, :minor_third, :fourth, :diminished_fifth, :minor_sixth, :minor_seventh],
+    chromatic: [
+      :minor_second, :major_second, :minor_third, :major_third, :fourth, :diminished_fifth,
+      :fifth, :minor_sixth, :major_sixth, :minor_seventh, :major_seventh
+    ]
   }
   SCALES[:ionian] = SCALES[:major]
   SCALES[:aeolian] = SCALES[:natural_minor]

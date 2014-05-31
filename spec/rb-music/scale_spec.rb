@@ -78,6 +78,7 @@ describe RBMusic::Scale do
       "mixolydian" => ["C", "D", "E", "F", "G", "A", "Bb"],
       "aeolian" => ["C", "D", "Eb", "F", "G", "Ab", "Bb"],
       "locrian" => ["C", "Db", "Eb", "F", "Gb", "Ab", "Bb"],
+      "chromatic" => ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"],
     }.each_pair do |key, value|
       it "calculates a #{key} scale" do
         note.scale(key).map(&:latin).should == value
